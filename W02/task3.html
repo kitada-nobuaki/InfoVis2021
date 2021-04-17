@@ -1,34 +1,68 @@
 <html>
     <head>
-        <title>W02: task2</title>
+        <title>W02: task3</title>
     </head>
     <body>
+        <script src="vec3.js"></script>
+        <p>数値を入力して下さい</p>
+        <form>
+            <input type="number" id="x0" value="1" placeholder="x0" required>
+            <input type="number" id="y0" value="2" placeholder="y0" required>
+            <input type="number" id="z0" value="3" placeholder="z0" required>
+        </form>
+        <form>
+            <input type="number" id="x1" value="4" placeholder="x1" required>
+            <input type="number" id="y1" value="5" placeholder="y1" required>
+            <input type="number" id="z1" value="6" placeholder="z1" required>
+        </form>
+        <form>
+            <input type="number" id="x2" value="7" placeholder="x2" required>
+            <input type="number" id="y2" value="8" placeholder="y2" required>
+            <input type="number" id="z2" value="9" placeholder="z2" required>
+        </form>
+
+        <button onclick="inout(x0,y0,z0,x1,y1,z1,x2,y2,z2)" >Try it</button>
+
+        <p id="area"></p>
+
         <script>
-            function AreaOfTriangle(v0, v1, v2)
-            {
-                var v01 = 
-                var x0 = v0.x; 
-                var y0 = v0.y; 
-                var z0 = v0.z;
-                var x1 = v1.x; 
-                var y1 = v1.y; 
-                var z1 = v1.z;
-                var x2 = v2.x;
-                var y2 = v2.y;
-                var z2 = v2.z;
+            function AreaOfTriangle(v0, v1, v2){
+                var v01 = v1.sub(v0);
+                var v02 = v2.sub(v0);
+                var x01 = v01.x; 
+                var y01 = v01.y; 
+                var z01 = v01.z;
+                var x02 = v02.x; 
+                var y02 = v02.y; 
+                var z02 = v02.z;
 
-                v01 = 
+                var s1 = Math.pow((v01.y*v02.z - v01.z*v02.y),2);
+                var s2 = Math.pow((v01.z*v02.x - v01.x*v02.z),2);
+                var s3 = Math.pow((v01.x*v02.y - v01.y*v02.x),2);
 
+                var area = Math.sqrt(s1+s2+s3) / 2;
+                return area;
+            }
 
+            function inout(x0,y0,z0,x1,y1,z1,x2,y2,z2){
+                var x0 = Number(document.getElementById("x0").value);
+                var y0 = Number(document.getElementById("y0").value);
+                var z0 = Number(document.getElementById("z0").value);
+                var x1 = Number(document.getElementById("x1").value);
+                var y1 = Number(document.getElementById("y1").value);
+                var z1 = Number(document.getElementById("z1").value);
+                var x2 = Number(document.getElementById("x2").value);
+                var y2 = Number(document.getElementById("y2").value);
+                var z2 = Number(document.getElementById("z2").value);
 
+                var v0 = new Vec3( x0, y0, z0 );
+                var v1 = new Vec3( x1, y1, z1 );
+                var v2 = new Vec3( x2, y2, z2 );
+
+                var S = AreaOfTriangle(v0, v1, v2);
+                document.getElementById("area").innerHTML = S;
             }
         </script>
-        <script src="vec3.js"></script>
-        <script>
-            var v1 = new Vec3( 1, 2, 3 );
-            var v2 = new Vec3( 4, 5, 6 );
-            var v2 = new Vec3( 7, 8, 9 );
-            var S = 
-        </script>
+    
     </body>
 </html>
