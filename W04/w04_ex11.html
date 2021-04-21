@@ -5,11 +5,11 @@
     <body>
 	<script src="https://d3js.org/d3.v4.min.js"></script>
 	<script>
-	 var data = [100,50,80];
+	 var value = [100,200,50,120];
 	 var padding = 10;
 	 var height = 20;
 	 var svg = d3.select("body").append("svg");
-	 svg.selectAll("rect").data(data).enter().append("rect")
+	 svg.selectAll("rect").data(value).enter().append("rect")
 	    .attr("x", padding)
 	    .attr("y", function(d,i){ return padding + i * ( height + padding ); })
 	    .attr("width", function(d){ return d; })
