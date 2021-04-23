@@ -21,6 +21,9 @@
 		 	.data(data)
 			.enter()
 			.append()
+            .text(function(d){return d.l})
+            .attr("x", 120)
+            .attr("y", function(d,i){ return Number(d.p) + i * ( Number(d.h) + Number(d.p) ); })
 	 };
 	</script>
     </body>
