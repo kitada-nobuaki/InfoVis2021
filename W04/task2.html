@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>W04: Example 14</title>
+    </head>
+    <body>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script>
+	 var svg = d3.select("body").append("svg");
+	 d3.csv("https://kitada-nobuaki.github.io/InfoVis2021/W04/w04_task2.csv", draw );
+	 function draw(data){
+	     svg.selectAll("rect")
+		    .data(data)
+	        .enter()
+	        .append("rect")
+	        .attr("x", function(d){ return d.p; })
+	        .attr("y", function(d,i){ return d.p + i * ( d.h + d.p ); })
+	        .attr("width", function(d){ return d.width; })
+            .attr("height", h)
+            .style("fill",function(d){return d.c;})
+	 };
+	</script>
+    </body>
+</html>
