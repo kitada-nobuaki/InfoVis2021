@@ -12,18 +12,18 @@
 		    .data(data)
 	        .enter()
 	        .append("rect")
-	        .attr("x", function(d){ return d.p; })
-	        .attr("y", function(d,i){ return Number(d.p) + i * ( Number(d.h) + Number(d.p) ); })
+	        .attr("x", function(d){ return d.x; })
+	        .attr("y", function(d,i){ return Number(d.y) + i * ( Number(d.h) + Number(d.y) ); })
 	        .attr("width", function(d){ return d.d; })
             .attr("height", function(d){ return d.h})
             .style("fill",function(d){return d.c;})
 		 svg.selectAll("text")
 		 	.data(data)
 			.enter()
-			.append()
+			.append("text")
             .text(function(d){return d.l})
-            .attr("x", 120)
-            .attr("y", function(d,i){ return Number(d.p) + i * ( Number(d.h) + Number(d.p) ); })
+            .attr("x", 0)
+            .attr("y", function(d,i){ return Number(d.y) + (Number(d.h) / 1.3) + i * ( Number(d.h) + Number(d.y) ); })
 	 };
 	</script>
     </body>

@@ -1,5 +1,5 @@
-d,p,h,c,l
-100,10,20,blue,Label1
-50,10,20,red,Label2
-80,10,20,green,Label3
-30,10,20,yellow,Label4
+d,x,y,h,c,l
+100,60,10,20,blue,Label1
+50,60,10,20,red,Label2
+80,60,10,20,green,Label3
+30,60,10,20,yellow,Label4
