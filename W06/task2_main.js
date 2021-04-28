@@ -1,4 +1,4 @@
-d3.csv("https://kitada-nobuaki.github.io/InfoVis2021/W04/w04_task1.csv")
+d3.csv("https://kitada-nobuaki.github.io/InfoVis2021/W06/w06_task.csv")
     .then( data => {
         data.forEach( d => { d.x = +d.x; d.y = +d.y; });
 
@@ -6,7 +6,7 @@ d3.csv("https://kitada-nobuaki.github.io/InfoVis2021/W04/w04_task1.csv")
             parent: '#drawing_region',
             width: 256,
             height: 256,
-            margin: {top:10, right:10, bottom:50, left:50}
+            margin: {top:30, right:10, bottom:50, left:50}
         };
 
         const scatter_plot = new ScatterPlot( config, data );
@@ -42,6 +42,40 @@ class ScatterPlot {
         self.inner_width = self.config.width - self.config.margin.left - self.config.margin.right;
         self.inner_height = self.config.height - self.config.margin.top - self.config.margin.bottom;
 
+        self.title = self.svg.append('g')
+            .attr('transform', `translate(${self.config.margin.left}, ${self.config.margin.top})`)
+            .append("text")
+            .attr("fill", "black")
+            .attr("x", self.inner_width / 2)
+            .attr("y", 0 )
+            .attr("text-anchor", "middle")
+            .attr("font-size", "13pt")
+            .attr("font-weight", "bold")
+            .text("Title");
+
+        self.xlabel = self.svg.append('g')
+            .attr('transform', `translate(${self.config.margin.left}, ${self.config.margin.top})`)
+            .append("text")
+            .attr("fill", "black")
+            .attr("x", self.inner_width / 2)
+            .attr("y", self.inner_height + self.config.margin.top)
+            .attr("text-anchor", "middle")
+            .attr("font-size", "10pt")
+            .attr("font-weight", "bold")
+            .text("X Label");
+        
+        self.ylabel = self.svg.append('g')
+            .attr('transform', `translate(${self.config.margin.left}, ${self.config.margin.top})`)
+            .append("text")
+            .attr("fill", "black")
+            .attr("x", -(self.inner_height / 2))
+            .attr("y", -(self.config.margin.left / 2))
+            .attr("transform", "rotate(-90)")
+            .attr("text-anchor", "middle")
+            .attr("font-size", "10pt")
+            .attr("font-weight", "bold")
+            .text("Y Label");
+
         self.xscale = d3.scaleLinear()
             .range( [0, self.inner_width] );
 
@@ -54,12 +88,12 @@ class ScatterPlot {
         self.xaxis_group = self.chart.append('g')
             .attr('transform', `translate(0, ${self.inner_height})`);
 
-
         self.yaxis = d3.axisLeft( self.yscale )
             .ticks(5);
 
         self.yaxis_group = self.chart.append('g')
             .attr('transform', `translate(0,0)`);
+
     }
 
     update() {
@@ -85,7 +119,7 @@ class ScatterPlot {
             .append("circle")
             .attr("cx", d => self.xscale( d.x ) )
             .attr("cy", d => self.yscale( d.y ) )
-            .attr("r", "10");
+            .attr("r", d => d.r );
 
         self.xaxis_group
             .call( self.xaxis )

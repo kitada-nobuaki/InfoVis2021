@@ -1,4 +1,4 @@
-d3.csv("https://kitada-nobuaki.github.io/InfoVis2021/W04/w04_task1.csv")
+d3.csv("https://kitada-nobuaki.github.io/InfoVis2021/W06/w06_task.csv")
     .then( data => {
         data.forEach( d => { d.x = +d.x; d.y = +d.y; });
 
@@ -84,7 +84,7 @@ class ScatterPlot {
             .append("circle")
             .attr("cx", d => self.xscale( d.x ) )
             .attr("cy", d => self.yscale( d.y ) )
-            .attr("r", "10");
+            .attr("r",  d => d.r );
 
         self.xaxis_group
             .call( self.xaxis );
