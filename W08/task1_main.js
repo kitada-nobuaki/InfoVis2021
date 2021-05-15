@@ -1,6 +1,6 @@
 d3.csv("https://kitada-nobuaki.github.io/InfoVis2021/W08/task1.csv")
     .then( data => {
-        data.forEach( d => { d.l = +d.l; d.v = +d.v; });
+        data.forEach( d => { d.lavel = +d.lavel; d.value = +d.value; });
         
         var config = {
             parent: '#drawing_region',
@@ -44,11 +44,9 @@ class BarChart {
         self.inner_height = self.config.height - self.config.margin.top - self.config.margin.bottom;
         
         self.xscale = d3.scaleLinear()
-            .domain([0, d3.max(self.data, d => d.v)])
             .range([0, self.inner_width]);
            
         self.yscale = d3.scaleBand()
-            .domain(self.data.map(d => d.l))
             .range([0, self.inner_height])
             .paddingInner(0.1);
 
@@ -69,6 +67,13 @@ class BarChart {
 
     update() {
         let self = this;
+
+        const xmin = 0;
+        const xmax = d3.max(self.data, d => d.value);
+        self.xscale.domain([xmin, xmax]);
+
+        self.yscale.domain(self.data.map(d => d.lavel));
+
         self.render();
     }
 
@@ -77,8 +82,8 @@ class BarChart {
         self.chart.selectAll("rect").data(self.data).enter()
             .append("rect")
             .attr("x", 0)
-            .attr("y", d => self.yscale(d.l))
-            .attr("width", d => self.xscale(d.v))
+            .attr("y", d => self.yscale(d.lavel))
+            .attr("width", d => self.xscale(d.value))
             .attr("height", self.yscale.bandwidth());
     
 

@@ -1,7 +1,7 @@
 d3.csv("https://kitada-nobuaki.github.io/InfoVis2021/W08/task1.csv")
     .then( data => {
         // Convert strings to numbers
-        data.forEach( d => { d.l = +d.l; d.v = +d.v; });
+        data.forEach( d => { d.lavel = +d.lavel; d.value = +d.value; });
         ShowScatterPlot(data);
     })
     .catch( error => {
@@ -26,11 +26,11 @@ function ShowScatterPlot ( data ) {
 
       // Initialize axis scales
       const xscale = d3.scaleLinear()
-            .domain([0, d3.max(data, d => d.v)])
+            .domain([0, d3.max(data, d => d.value)])
             .range([0, inner_width]);
 
       const yscale = d3.scaleBand()
-            .domain(data.map(d => d.l))
+            .domain(data.map(d => d.lavel))
             .range([0, inner_height])
             .paddingInner(0.1);
 
@@ -54,7 +54,7 @@ function ShowScatterPlot ( data ) {
       chart.selectAll("rect").data(data).enter()
       .append("rect")
       .attr("x", 0)
-      .attr("y", d => yscale(d.l))
-      .attr("width", d => xscale(d.v))
+      .attr("y", d => yscale(d.lavel))
+      .attr("width", d => xscale(d.value))
       .attr("height", yscale.bandwidth());
 }
