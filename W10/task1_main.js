@@ -1,4 +1,4 @@
-d3.csv("https://kitada-nobuaki.github.io/InfoVis2021/W08/task1.csv")
+d3.csv("https://kitada-nobuaki.github.io/InfoVis2021/W10/task1.csv")
     .then( data => {
         data.forEach( d => {d.value = +d.value; });
         
@@ -6,7 +6,7 @@ d3.csv("https://kitada-nobuaki.github.io/InfoVis2021/W08/task1.csv")
             parent: '#drawing_region',
             width: 400,
             height: 400,
-            margin: {top:40, right:10, bottom:60, left:100},
+            margin: {top:40, right:10, bottom:60, left:60},
             title: 'イチゴの生産量',
             xlabel: '生産量[t]',
             ylabel: '産地'
@@ -100,7 +100,7 @@ class BarChart {
 
         self.yaxis_group = self.chart.append('g');
 
-        const title_space = 30;
+        const title_space = 15;
         self.svg.append('text')
             .style('font-size', '13px')
             .style('font-weight', 'bold')
@@ -115,7 +115,7 @@ class BarChart {
             .attr('y', self.inner_height + self.config.margin.top + xlabel_space)
             .text( self.config.xlabel );
     
-        const ylabel_space = 100;
+        const ylabel_space = 60;
         self.svg.append('text')
             .attr('transform', `rotate(-90)`)
             .attr('y', self.config.margin.left - ylabel_space)
@@ -123,6 +123,7 @@ class BarChart {
             .attr('text-anchor', 'middle')
             .attr('dy', '1em')
             .text( self.config.ylabel );
+
     }
 
     update(data) {
@@ -147,7 +148,7 @@ class BarChart {
             .attr("y", d => self.yscale(d.label))
             .attr("width", d => self.xscale(d.value))
             .attr("height", self.yscale.bandwidth())
-            .each(d => console.log(d))
+            .attr('fill', "steelblue")
 
         self.xaxis_group
             .call( self.xaxis );

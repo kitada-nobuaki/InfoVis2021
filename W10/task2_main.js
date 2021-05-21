@@ -1,12 +1,15 @@
-d3.csv("https://kitada-nobuaki.github.io/InfoVis2021/W06/w06_task.csv")
+d3.csv("https://kitada-nobuaki.github.io/InfoVis2021/W10/task2.csv")
     .then( data => {
         data.forEach( d => { d.pop = +d.pop; d.area = +d.area; });
 
         var config = {
             parent: '#drawing_region',
-            width: 256,
-            height: 256,
-            margin: {top:30, right:10, bottom:50, left:50}
+            width: 400,
+            height: 400,
+            margin: {top:40, right:10, bottom:60, left:60},
+            title: 'Population density',
+            xlabel: 'Population [million people]',
+            ylabel: 'Area [ten thousand km^2]'
         };
 
         const scatter_plot = new ScatterPlot( config, data );
@@ -23,7 +26,10 @@ class ScatterPlot {
             parent: config.parent,
             width: config.width || 256,
             height: config.height || 256,
-            margin: config.margin || {top:10, right:10, bottom:10, left:10}
+            margin: config.margin || {top:10, right:10, bottom:10, left:10},
+            title: config.title || '',
+            xlabel: config.xlabel || '',
+            ylabel: config.ylabel || ''
         }
         this.data = data;
         this.init();
@@ -42,40 +48,6 @@ class ScatterPlot {
         self.inner_width = self.config.width - self.config.margin.left - self.config.margin.right;
         self.inner_height = self.config.height - self.config.margin.top - self.config.margin.bottom;
 
-        self.title = self.svg.append('g')
-            .attr('transform', `translate(${self.config.margin.left}, ${self.config.margin.top})`)
-            .append("text")
-            .attr("fill", "black")
-            .attr("x", self.inner_width / 2)
-            .attr("y", 0 )
-            .attr("text-anchor", "middle")
-            .attr("font-size", "13pt")
-            .attr("font-weight", "bold")
-            .text("Title");
-
-        self.xlabel = self.svg.append('g')
-            .attr('transform', `translate(${self.config.margin.left}, ${self.config.margin.top})`)
-            .append("text")
-            .attr("fill", "black")
-            .attr("x", self.inner_width / 2)
-            .attr("y", self.inner_height + self.config.margin.top)
-            .attr("text-anchor", "middle")
-            .attr("font-size", "10pt")
-            .attr("font-weight", "bold")
-            .text("X Label");
-        
-        self.ylabel = self.svg.append('g')
-            .attr('transform', `translate(${self.config.margin.left}, ${self.config.margin.top})`)
-            .append("text")
-            .attr("fill", "black")
-            .attr("x", -(self.inner_height / 2))
-            .attr("y", -(self.config.margin.left / 2))
-            .attr("transform", "rotate(-90)")
-            .attr("text-anchor", "middle")
-            .attr("font-size", "10pt")
-            .attr("font-weight", "bold")
-            .text("Y Label");
-
         self.xscale = d3.scaleLinear()
             .range( [0, self.inner_width] );
 
@@ -92,7 +64,30 @@ class ScatterPlot {
             .ticks(8);
 
         self.yaxis_group = self.chart.append('g')
-            .attr('transform', `translate(0,0)`);
+
+        const title_space = 15;
+        self.svg.append('text')
+            .style('font-size', '13px')
+            .style('font-weight', 'bold')
+            .attr('text-anchor', 'middle')
+            .attr('x', self.config.width / 2)
+            .attr('y', self.config.margin.top - title_space)
+            .text( self.config.title );
+
+        const xlabel_space = 40;
+        self.svg.append('text')
+            .attr('x', self.config.width / 3)
+            .attr('y', self.inner_height + self.config.margin.top + xlabel_space)
+            .text( self.config.xlabel );
+    
+        const ylabel_space = 60;
+        self.svg.append('text')
+            .attr('transform', `rotate(-90)`)
+            .attr('y', self.config.margin.left - ylabel_space)
+            .attr('x', -(self.config.height / 2))
+            .attr('text-anchor', 'middle')
+            .attr('dy', '1em')
+            .text( self.config.ylabel );
 
     }
 
@@ -113,19 +108,20 @@ class ScatterPlot {
     render() {
         let self = this;
 
+        let circles = 
         self.chart.selectAll("circle")
             .data(self.data)
             .enter()
             .append("circle")
             .attr("cx", d => self.xscale( d.pop ) )
             .attr("cy", d => self.yscale( d.area ) )
-            .attr("r", d => d.r );
+            .attr("r", 10 );
 
-        self.chart
+        circles
             .on('mouseover', (e,d) => {
                 d3.select('#tooltip')
                     .style('opacity', 1)
-                    .html(`<div class="tooltip-label">Position</div>(${self.yscale( d.pop )}, ${self.yscale( d.area )})`);
+                    .html(`<div class="tooltip-label">${d.country}</div>(${d.pop}, ${d.area})`);
             })
             .on('mousemove', (e) => {
                 const padding = 10;
