@@ -51,6 +51,33 @@ d3.csv("https://kitada-nobuaki.github.io/InfoVis2021/FinalTask/FinalTask.csv")
         }, input_data );
         scatter_plot3.update();
 
+        paralle_plot = new ParallelPlot( {
+            parent: '#drawing_region_parallelplot',
+            width: 256,
+            height: 400,
+            margin: {top:30, right:10, bottom:50, left:30},
+            cscale: color_scale
+        }, input_data );
+        paralle_plot.update();
+
+        paralle_plot2 = new ParallelPlot2( {
+            parent: '#drawing_region_parallelplot2',
+            width: 256,
+            height: 400,
+            margin: {top:30, right:10, bottom:50, left:30},
+            cscale: color_scale
+        }, input_data );
+        paralle_plot2.update();
+
+        paralle_plot3 = new ParallelPlot3( {
+            parent: '#drawing_region_parallelplot3',
+            width: 256,
+            height: 400,
+            margin: {top:30, right:10, bottom:50, left:30},
+            cscale: color_scale
+        }, input_data );
+        paralle_plot3.update();
+
         bar_chart = new BarChart( {
             parent: '#drawing_region_barchart',
             width: 256,
