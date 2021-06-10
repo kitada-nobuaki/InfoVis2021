@@ -13,6 +13,7 @@ d3.csv("https://kitada-nobuaki.github.io/InfoVis2021/FinalTask/FinalTask.csv")
             d.hits = +d.hits;
             d.walks = +d.walks;
             d.strikeout = +d.strikeout;
+            d.wins = +d.wins;
         });
 
         const color_scale = d3.scaleOrdinal( d3.schemeCategory10 );
@@ -24,7 +25,7 @@ d3.csv("https://kitada-nobuaki.github.io/InfoVis2021/FinalTask/FinalTask.csv")
             height: 256,
             margin: {top:10, right:10, bottom:50, left:50},
             xlabel: 'hits',
-            ylabel: 'win',
+            ylabel: 'wins',
             cscale: color_scale
         }, input_data );
         scatter_plot.update();
@@ -35,7 +36,7 @@ d3.csv("https://kitada-nobuaki.github.io/InfoVis2021/FinalTask/FinalTask.csv")
             height: 256,
             margin: {top:10, right:10, bottom:50, left:50},
             xlabel: 'walks',
-            ylabel: 'win',
+            ylabel: 'wins',
             cscale: color_scale
         }, input_data );
         scatter_plot2.update();
@@ -46,7 +47,7 @@ d3.csv("https://kitada-nobuaki.github.io/InfoVis2021/FinalTask/FinalTask.csv")
             height: 256,
             margin: {top:10, right:10, bottom:50, left:50},
             xlabel: 'strikeout',
-            ylabel: 'win',
+            ylabel: 'wins',
             cscale: color_scale
         }, input_data );
         scatter_plot3.update();

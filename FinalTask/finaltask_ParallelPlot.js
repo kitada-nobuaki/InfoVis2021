@@ -25,7 +25,7 @@ class ParallelPlot{
         self.inner_width = self.config.width - self.config.margin.left - self.config.margin.right;
         self.inner_height = self.config.height - self.config.margin.top - self.config.margin.bottom;
 
-        self.dimensions = ['win','hits'];
+        self.dimensions = ['wins','hits'];
 
         self.yscale = {};
         var i;

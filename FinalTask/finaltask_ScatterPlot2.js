@@ -72,7 +72,7 @@ class ScatterPlot2 {
 
         self.cvalue = d => d.league;
         self.xvalue = d => d.walks;
-        self.yvalue = d => d.win;
+        self.yvalue = d => d.wins;
 
         const xmin = d3.min( self.data, self.xvalue );
         const xmax = d3.max( self.data, self.xvalue );
